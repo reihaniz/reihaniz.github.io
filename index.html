@@ -71,6 +71,12 @@
       overflow-x: hidden;
     }
 
+    button,
+    input,
+    textarea {
+      font-family: inherit;
+    }
+
     html[data-theme="dark"] body {
       background:
         radial-gradient(900px 500px at 8% -20%, rgba(67, 74, 88, 0.35), transparent 60%),
@@ -679,11 +685,76 @@
       font-size: 1.2rem;
     }
 
-    .project-card p {
+    .project-desc {
       margin: 0;
       color: var(--muted);
       font-size: 0.92rem;
       line-height: 1.6;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      overflow: hidden;
+      min-height: calc(1.6em * 3);
+    }
+
+    .project-card.is-expanded .project-desc {
+      display: block;
+      -webkit-line-clamp: unset;
+      line-clamp: unset;
+      -webkit-box-orient: unset;
+      overflow: visible;
+      min-height: 0;
+    }
+
+    .project-more {
+      border: none;
+      background: transparent;
+      color: var(--accent-strong);
+      font-weight: 600;
+      font-size: 0.86rem;
+      padding: 0;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .project-more::after {
+      content: "▾";
+      font-size: 0.7rem;
+      transition: transform 0.2s ease;
+    }
+
+    .project-card.is-expanded .project-more::after {
+      transform: rotate(180deg);
+    }
+
+    .project-actions {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .project-link.primary {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #ffffff;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+    }
+
+    .project-link.primary:hover {
+      color: #ffffff;
+      box-shadow: 0 16px 28px rgba(15, 23, 42, 0.22);
+    }
+
+    html[data-theme="dark"] .project-link.primary {
+      background: var(--accent-strong);
+      color: #1c1917;
     }
 
     .project-date {
@@ -694,7 +765,6 @@
     }
 
     .project-link {
-      margin-top: auto;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -1182,6 +1252,24 @@
       font-size: 0.9rem;
     }
 
+    .info-block a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--line);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .info-block a:hover {
+      color: var(--accent-strong);
+      border-color: var(--accent-strong);
+    }
+
+    .info-block a:focus-visible {
+      outline: 2px solid var(--accent-strong);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
     footer {
       padding: 32px 0 40px;
       border-top: 1px solid var(--line);
@@ -1437,8 +1525,12 @@
               </div>
               <span class="project-date">Agustus 2025 — Januari 2026</span>
               <h4>Platform Rekber End-to-End</h4>
-              <p>Transaksi escrow lengkap (status flow, SLA), chat + bukti transaksi, verifikasi KYC, integrasi payment gateway + verifikasi webhook, serta Tasker webhook HMAC untuk otomasi pembayaran. Integrasi AI untuk mendeteksi ajakan komunikasi di luar platform. <strong>Microservice Go + reverse proxy (SSE chat)</strong>.</p>
-              <a class="project-link" href="#contact">Detail proyek →</a>
+              <p class="project-desc">Escrow end‑to‑end dengan SLA, KYC, payment gateway + Tasker webhook (HMAC), dan chat realtime. Didukung <strong>microservice Go + reverse proxy (SSE chat)</strong> serta AI chat‑intent.</p>
+              <button class="project-more" type="button" data-project-toggle aria-expanded="false">Lihat selengkapnya</button>
+              <div class="project-actions">
+                <a class="project-link primary" href="https://gasrekber.id" target="_blank" rel="noopener">Kunjungi website ↗</a>
+                <a class="project-link" href="#contact">Detail proyek →</a>
+              </div>
             </article>
             <article class="project-card reveal" data-reveal>
               <div class="project-cover">
@@ -1452,8 +1544,11 @@
               </div>
               <span class="project-date">Juli 2023 — Agustus 2024</span>
               <h4>Platform Novel + Dashboard Penulis</h4>
-              <p>Katalog novel, chapter management, rating/review, serta dashboard penulis untuk menambah novel &amp; chapter. Mendukung halaman publik, FAQ, dan donation.</p>
-              <a class="project-link" href="#contact">Lihat detail →</a>
+              <p class="project-desc">Katalog novel, chapter management, rating/review, serta dashboard penulis untuk menambah novel &amp; chapter. Mendukung halaman publik, FAQ, dan donation.</p>
+              <button class="project-more" type="button" data-project-toggle aria-expanded="false">Lihat selengkapnya</button>
+              <div class="project-actions">
+                <a class="project-link" href="#contact">Tanyakan project →</a>
+              </div>
             </article>
             <article class="project-card reveal" data-reveal>
               <div class="project-cover">
@@ -1467,8 +1562,11 @@
               </div>
               <span class="project-date">Juli 2022 — Agustus 2023</span>
               <h4>Game Boosting Freelance Platform</h4>
-              <p>Order flow boosting dengan session auth, status tracking, chat, serta integrasi pembayaran (PayPal/crypto).</p>
-              <a class="project-link" href="#contact">Baca proses →</a>
+              <p class="project-desc">Order flow boosting dengan session auth, status tracking, chat, serta integrasi pembayaran (PayPal/crypto).</p>
+              <button class="project-more" type="button" data-project-toggle aria-expanded="false">Lihat selengkapnya</button>
+              <div class="project-actions">
+                <a class="project-link" href="#contact">Baca proses →</a>
+              </div>
             </article>
           </div>
         </div>
@@ -1483,15 +1581,15 @@
           <div class="services">
             <div class="service-card reveal" data-reveal>
               <h4>Backend Core</h4>
-              <p>Login, hak akses, serta alur transaksi yang jelas dan aman.</p>
+              <p>Membangun RESTful API, validasi data, dan alur bisnis yang konsisten.</p>
             </div>
             <div class="service-card reveal" data-reveal>
               <h4>Pembayaran &amp; Integrasi</h4>
-              <p>Integrasi payment, webhook, dan otomatisasi status transaksi.</p>
+              <p>Integrasi payment, webhook, dan automasi status transaksi.</p>
             </div>
             <div class="service-card reveal" data-reveal>
               <h4>Operasional &amp; Real-time</h4>
-              <p>Chat/notifikasi, monitoring, serta dukungan operasional harian.</p>
+              <p>Fitur real-time (chat/notification), monitoring, serta tooling admin.</p>
             </div>
           </div>
           <div class="stack-label">Tech Stack</div>
@@ -1694,7 +1792,7 @@
             <p>Terbuka untuk posisi backend/web developer dan proyek freelance. Silakan kirim detail kebutuhan Anda.</p>
           </div>
           <div class="contact-card">
-            <form>
+            <form id="contactForm" data-whatsapp="6281297185831">
               <div class="field">
                 <label for="name">Nama</label>
                 <input id="name" name="name" type="text" placeholder="Nama lengkap"/>
@@ -1707,7 +1805,7 @@
                 <label for="message">Ceritakan kebutuhan Anda</label>
                 <textarea id="message" name="message" placeholder="Tulis ringkas posisi/role, scope, dan timeline."></textarea>
               </div>
-              <button class="cta primary" type="submit">Kirim Pesan</button>
+              <button class="cta primary" type="submit">Kirim via WhatsApp</button>
             </form>
             <div class="contact-info">
               <div class="info-block">
@@ -1716,11 +1814,15 @@
               </div>
               <div class="info-block">
                 <h5>Kontak Langsung</h5>
-                <p>hello@namasaya.com<br/>+62 812-0000-0000</p>
+                <p>reihaniz.etc@gmail.com<br/>+62 812-9718-5831</p>
               </div>
               <div class="info-block">
                 <h5>Social</h5>
-                <p>GitHub · LinkedIn · Portfolio</p>
+                <p>
+                  <a href="https://github.com/reihaniz" target="_blank" rel="noopener">GitHub</a> ·
+                  <a href="https://linkedin.com/in/reihaniz" target="_blank" rel="noopener">LinkedIn</a> ·
+                  <a href="https://www.instagram.com/reihan_iz/" target="_blank" rel="noopener">Instagram</a>
+                </p>
               </div>
             </div>
           </div>
@@ -1808,6 +1910,59 @@
         localStorage.setItem('theme', nextTheme);
         updateThemeLabel(nextTheme);
         });
+      });
+    }
+
+    const projectToggles = document.querySelectorAll('[data-project-toggle]');
+    let projectToggleTimer = null;
+    const updateProjectToggles = () => {
+      projectToggles.forEach((toggle) => {
+        const card = toggle.closest('.project-card');
+        const desc = card ? card.querySelector('.project-desc') : null;
+        if (!desc) return;
+        const isOverflowing = desc.scrollHeight > desc.clientHeight + 2;
+        toggle.style.display = isOverflowing ? 'inline-flex' : 'none';
+        if (!isOverflowing) {
+          card.classList.remove('is-expanded');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    };
+
+    projectToggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const card = toggle.closest('.project-card');
+        if (!card) return;
+        const expanded = card.classList.toggle('is-expanded');
+        toggle.setAttribute('aria-expanded', String(expanded));
+        toggle.textContent = expanded ? 'Ringkas' : 'Lihat selengkapnya';
+      });
+    });
+
+    window.addEventListener('load', updateProjectToggles);
+    window.addEventListener('resize', () => {
+      clearTimeout(projectToggleTimer);
+      projectToggleTimer = setTimeout(updateProjectToggles, 150);
+    });
+
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const phoneRaw = (contactForm.dataset.whatsapp || '').replace(/\D/g, '');
+        if (!phoneRaw) return;
+        const name = contactForm.querySelector('[name="name"]')?.value.trim();
+        const email = contactForm.querySelector('[name="email"]')?.value.trim();
+        const message = contactForm.querySelector('[name="message"]')?.value.trim();
+        const lines = [
+          'Halo Reihan, saya ingin berdiskusi mengenai project/posisi.',
+          name ? `Nama: ${name}` : null,
+          email ? `Email: ${email}` : null,
+          message ? `Pesan: ${message}` : null
+        ].filter(Boolean);
+        const text = lines.join('\n');
+        const url = `https://wa.me/${phoneRaw}?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
       });
     }
 
