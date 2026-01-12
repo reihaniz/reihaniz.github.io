@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f4efe9"/>
+      <stop offset="100%" stop-color="#e7dfd4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="780" rx="28" fill="#ffffff" stroke="#e6e0d9" stroke-width="6"/>
+  <text x="600" y="210" font-family="Georgia, serif" font-size="48" fill="#8b6f54" text-anchor="middle">Sertifikat</text>
+  <text x="600" y="320" font-family="Arial, sans-serif" font-size="30" fill="#1f2937" text-anchor="middle">Bangkit Academy</text>
+  <text x="600" y="400" font-family="Arial, sans-serif" font-size="22" fill="#667085" text-anchor="middle">Ganti dengan file sertifikat asli</text>
+  <rect x="330" y="470" width="540" height="6" fill="#e6e0d9"/>
+  <text x="600" y="540" font-family="Arial, sans-serif" font-size="20" fill="#667085" text-anchor="middle">assets/certs/bangkit.svg</text>
+</svg>
