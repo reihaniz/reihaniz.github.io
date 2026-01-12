@@ -312,6 +312,12 @@
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
     }
 
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .nav-mobile-actions {
       display: none;
       flex-direction: column;
@@ -1455,13 +1461,13 @@
           <a href="#contact" data-i18n="nav_contact">Kontak</a>
           <div class="nav-mobile-actions">
             <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-i18n-aria="theme_toggle_aria">Mode Gelap</button>
-            <button class="lang-toggle" type="button" aria-label="Switch language">EN</button>
+            <button class="lang-toggle" type="button" aria-label="Switch language">🇬🇧 EN</button>
             <a class="cta primary" href="#contact"><strong data-i18n="cta_contact">Hubungi Saya</strong> →</a>
           </div>
         </nav>
         <div class="nav-actions">
           <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-i18n-aria="theme_toggle_aria">Mode Gelap</button>
-          <button class="lang-toggle" type="button" aria-label="Switch language">EN</button>
+          <button class="lang-toggle" type="button" aria-label="Switch language">🇬🇧 EN</button>
           <a class="cta primary" href="#contact"><strong data-i18n="cta_contact">Hubungi Saya</strong> →</a>
           <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" data-i18n="nav_menu">Menu</button>
         </div>
@@ -1585,7 +1591,7 @@
                 <span class="tag">Bootstrap</span>
               </div>
               <span class="project-date" data-i18n="project_date_novelplex">Juli 2023 — Agustus 2024</span>
-              <h4 data-i18n="project_novelplex_title">Platform Novel + Dashboard Penulis</h4>
+              <h4 data-i18n="project_novelplex_title">Novel Platform Project</h4>
               <p class="project-desc" data-i18n="project_novelplex_desc">Katalog novel, chapter management, rating/review, serta dashboard penulis untuk menambah novel &amp; chapter. Mendukung halaman publik, FAQ, dan donation.</p>
               <button class="project-more" type="button" data-project-toggle aria-expanded="false" data-i18n="project_more">Lihat selengkapnya</button>
               <div class="project-actions">
@@ -1980,7 +1986,7 @@
         project_gasrekber_desc: 'Escrow end‑to‑end dengan SLA, KYC, payment gateway + Tasker webhook (HMAC), dan chat realtime. Didukung <strong>microservice Go + reverse proxy (SSE chat)</strong> serta AI chat‑intent.',
         project_novelplex_alt: 'Preview NovelPlex',
         project_date_novelplex: 'Juli 2023 — Agustus 2024',
-        project_novelplex_title: 'Platform Novel + Dashboard Penulis',
+        project_novelplex_title: 'Novel Platform Project',
         project_novelplex_desc: 'Katalog novel, chapter management, rating/review, serta dashboard penulis untuk menambah novel & chapter. Mendukung halaman publik, FAQ, dan donation.',
         project_danrier_alt: 'Preview Danrier',
         project_date_danrier: 'Juli 2022 — Agustus 2023',
@@ -2126,7 +2132,7 @@
         project_gasrekber_desc: 'End‑to‑end escrow with SLA, KYC, payment gateway + Tasker webhook (HMAC), and real‑time chat. Powered by <strong>Go microservice + reverse proxy (SSE chat)</strong> and AI chat‑intent.',
         project_novelplex_alt: 'NovelPlex preview',
         project_date_novelplex: 'July 2023 — August 2024',
-        project_novelplex_title: 'Novel Platform + Writer Dashboard',
+        project_novelplex_title: 'Novel Platform Project',
         project_novelplex_desc: 'Novel catalog, chapter management, ratings/reviews, plus writer dashboard to manage novels & chapters. Includes public pages, FAQ, and donations.',
         project_danrier_alt: 'Danrier preview',
         project_date_danrier: 'July 2022 — August 2023',
@@ -2296,7 +2302,7 @@
       if (langToggles.length) {
         langToggles.forEach((toggle) => {
           const isId = currentLang === 'id';
-          toggle.textContent = isId ? 'EN' : 'ID';
+          toggle.textContent = isId ? '🇬🇧 EN' : '🇮🇩 ID';
           toggle.setAttribute('aria-label', isId ? dict.lang_switch_to_en : dict.lang_switch_to_id);
         });
       }
