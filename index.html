@@ -19,6 +19,8 @@
       --accent: #b79f87;
       --accent-strong: #8b6f54;
       --accent-cool: #b8c2d4;
+      --skeleton-base: rgba(255, 255, 255, 0.25);
+      --skeleton-highlight: rgba(255, 255, 255, 0.6);
       --shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
       --radius: 22px;
       --content: 1180px;
@@ -35,6 +37,8 @@
       --accent: #c9b39b;
       --accent-strong: #e3c2a6;
       --accent-cool: #6b7a99;
+      --skeleton-base: rgba(227, 194, 166, 0.12);
+      --skeleton-highlight: rgba(227, 194, 166, 0.35);
       --shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
     }
 
@@ -160,6 +164,15 @@
       color: inherit;
     }
 
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
     .brand-mark {
       width: 52px;
       height: 52px;
@@ -175,6 +188,28 @@
       overflow: hidden;
     }
 
+    .brand-mark::before,
+    .profile-image::before,
+    .project-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, var(--skeleton-base) 0%, var(--skeleton-highlight) 50%, var(--skeleton-base) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s ease-in-out infinite;
+      opacity: 0.6;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .brand-mark.has-image::before,
+    .profile-image.has-image::before,
+    .project-cover.has-image::before {
+      opacity: 0;
+      animation: none;
+    }
+
     .brand-mark img {
       position: absolute;
       inset: 0;
@@ -183,11 +218,12 @@
       object-fit: cover;
       opacity: 0;
       transition: opacity 0.2s ease;
+      z-index: 1;
     }
 
     .brand-mark span {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       transition: opacity 0.2s ease;
 	  color: #404852;
     }
@@ -243,7 +279,8 @@
       flex-shrink: 0;
     }
 
-    .theme-toggle {
+    .theme-toggle,
+    .lang-toggle {
       border: 1px solid var(--line);
       background: var(--panel);
       color: var(--ink);
@@ -269,7 +306,8 @@
       white-space: nowrap;
     }
 
-    .theme-toggle:hover {
+    .theme-toggle:hover,
+    .lang-toggle:hover {
       transform: translateY(-1px);
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
     }
@@ -320,6 +358,7 @@
       }
 
       .theme-toggle,
+      .lang-toggle,
       .menu-toggle {
         font-size: 0.75rem;
       }
@@ -523,11 +562,12 @@
       object-fit: cover;
       opacity: 0;
       transition: opacity 0.2s ease;
+      z-index: 1;
     }
 
     .profile-image span {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       transition: opacity 0.2s ease;
     }
 
@@ -649,11 +689,12 @@
       object-fit: cover;
       opacity: 0;
       transition: opacity 0.2s ease;
+      z-index: 1;
     }
 
     .project-cover span {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       transition: opacity 0.2s ease;
     }
 
@@ -1341,6 +1382,7 @@
       }
 
       .nav-actions .theme-toggle,
+      .nav-actions .lang-toggle,
       .nav-actions .cta {
         display: none;
       }
@@ -1401,27 +1443,27 @@
             <span>MR</span>
           </div>
           <div class="brand-text">
-            <h1>Maulana Reihansyah</h1>
-            <p>Full Stack Developer</p>
+            <h1 data-i18n="brand_name">Maulana Reihansyah</h1>
+            <p data-i18n="brand_role">Backend / Web Developer</p>
           </div>
         </a>
         <nav class="nav-links" id="site-nav">
-          <a href="#about">Tentang</a>
-          <a href="#projects">Proyek</a>
-          <a href="#services">Keahlian</a>
-          <a href="#certificates">Sertifikat</a>
-          <a href="#education">Pendidikan</a>
-          <a href="#experience">Proses</a>
-          <a href="#contact">Kontak</a>
+          <a href="#about" data-i18n="nav_about">Tentang</a>
+          <a href="#projects" data-i18n="nav_projects">Proyek</a>
+          <a href="#services" data-i18n="nav_services">Keahlian</a>
+          <a href="#certificates" data-i18n="nav_certificates">Sertifikat</a>
+          <a href="#contact" data-i18n="nav_contact">Kontak</a>
           <div class="nav-mobile-actions">
-            <button class="theme-toggle" type="button" aria-label="Toggle dark mode">Mode Gelap</button>
-            <a class="cta primary" href="#contact"><strong>Hubungi Saya</strong> →</a>
+            <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-i18n-aria="theme_toggle_aria">Mode Gelap</button>
+            <button class="lang-toggle" type="button" aria-label="Switch language">EN</button>
+            <a class="cta primary" href="#contact"><strong data-i18n="cta_contact">Hubungi Saya</strong> →</a>
           </div>
         </nav>
         <div class="nav-actions">
-          <button class="theme-toggle" type="button" aria-label="Toggle dark mode">Mode Gelap</button>
-          <a class="cta primary" href="#contact"><strong>Hubungi Saya</strong> →</a>
-          <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false">Menu</button>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-i18n-aria="theme_toggle_aria">Mode Gelap</button>
+          <button class="lang-toggle" type="button" aria-label="Switch language">EN</button>
+          <a class="cta primary" href="#contact"><strong data-i18n="cta_contact">Hubungi Saya</strong> →</a>
+          <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" data-i18n="nav_menu">Menu</button>
         </div>
       </div>
     </header>
@@ -1430,25 +1472,25 @@
       <section class="hero">
         <div class="container hero-grid">
           <div>
-            <span class="eyebrow"><span class="eyebrow-highlight">Fresh Graduate</span> · Backend / Web Developer</span>
-            <h2>Membangun backend yang stabil, aman, dan mudah dirawat.</h2>
-            <p>Saya membantu tim menghadirkan sistem backend yang stabil dari awal sampai rilis, supaya produk mudah dioperasikan dan tetap aman saat dipakai pengguna.</p>
+            <span class="eyebrow"><span class="eyebrow-highlight" data-i18n="hero_badge">Fresh Graduate</span><span data-i18n="hero_role"> · Backend / Web Developer</span></span>
+            <h2 data-i18n="hero_title">Membangun backend yang stabil, aman, dan mudah dirawat.</h2>
+            <p data-i18n="hero_desc">Saya membantu tim menghadirkan sistem backend yang stabil dari awal sampai rilis, supaya produk mudah dioperasikan dan tetap aman saat dipakai pengguna.</p>
             <div class="hero-actions">
-              <a class="cta primary" href="#projects">Lihat Proyek Backend</a>
-              <a class="cta" href="#contact">Jadwalkan Interview</a>
+              <a class="cta primary" href="#projects" data-i18n="hero_cta_projects">Lihat Proyek Backend</a>
+              <a class="cta" href="#contact" data-i18n="hero_cta_interview">Jadwalkan Interview</a>
             </div>
             <div class="stat-row">
               <div class="stat-card">
-                <strong>3+ Proyek</strong>
-                <span>Freelance &amp; pribadi</span>
+                <strong data-i18n="stat_projects_title">3+ Proyek</strong>
+                <span data-i18n="stat_projects_desc">Freelance &amp; pribadi</span>
               </div>
               <div class="stat-card">
-                <strong>2 Program</strong>
-                <span>MBKM MSIB <small style="font-size: 10px;">Bersertifikat</small></span>
+                <strong data-i18n="stat_programs_title">2 Program</strong>
+                <span data-i18n-html="stat_programs_desc">MBKM MSIB <small style="font-size: 10px;">Bersertifikat</small></span>
               </div>
               <div class="stat-card">
-                <strong>1 Sertifikasi</strong>
-                <span>BNSP 2023</span>
+                <strong data-i18n="stat_cert_title">1 Sertifikasi</strong>
+                <span data-i18n="stat_cert_desc">BNSP 2023</span>
               </div>
             </div>
           </div>
@@ -1457,11 +1499,11 @@
               <img src="assets/profile.jpg" alt="Maulana Reihan" loading="lazy" onload="this.parentElement.classList.add('has-image')"/>
               <span>MRA</span>
             </div>
-            <h3>Maulana Reihansyah Aziizs</h3>
-            <p>Terbiasa mengerjakan proyek dari awal sampai rilis dan memastikan fitur berjalan stabil, aman, serta mudah dipelihara.</p>
+            <h3 data-i18n="profile_name">Maulana Reihansyah Aziizs</h3>
+            <p data-i18n="profile_desc">Terbiasa mengerjakan proyek dari awal sampai rilis dan memastikan fitur berjalan stabil, aman, serta mudah dipelihara.</p>
             <div class="availability">
               <span class="dot"></span>
-              Siap bekerja full-time / freelance
+              <span data-i18n="availability">Siap bekerja full-time / freelance</span>
             </div>
           </div>
         </div>
@@ -1470,12 +1512,12 @@
       <section id="about">
         <div class="container">
           <div class="section-head">
-            <h3>Tentang Saya</h3>
-            <p>Saya fokus pada backend yang rapi dan mudah dipelihara, supaya proses bisnis berjalan konsisten dan aman.</p>
+            <h3 data-i18n="about_title">Tentang Saya</h3>
+            <p data-i18n="about_desc">Saya fokus pada backend yang rapi dan mudah dipelihara, supaya proses bisnis berjalan konsisten dan aman.</p>
           </div>
           <div class="timeline">
             <div>
-              <p>Proyek-proyek saya dikerjakan end‑to‑end: memahami kebutuhan, membangun fitur inti, menyiapkan panel admin, serta mendukung operasional harian.</p>
+              <p data-i18n="about_body">Proyek-proyek saya dikerjakan end‑to‑end: memahami kebutuhan, membangun fitur inti, menyiapkan panel admin, serta mendukung operasional harian.</p>
               <div class="skills" style="margin-top: 16px;">
                 <span class="tag">PHP</span>
                 <span class="tag">Laravel</span>
@@ -1489,16 +1531,16 @@
             </div>
             <div class="timeline-list">
               <div class="timeline-item">
-                <h5>GasRekber · Rekening Bersama Platform</h5>
-                <span>Agustus 2025 — Januari 2026</span>
+                <h5 data-i18n="timeline_gasrekber_title">GasRekber · Rekening Bersama Platform</h5>
+                <span data-i18n="timeline_gasrekber_date">Agustus 2025 — Januari 2026</span>
               </div>
               <div class="timeline-item">
-                <h5>NovelPlex · Novel Platform Project</h5>
-                <span>Juli 2023 — Agustus 2024</span>
+                <h5 data-i18n="timeline_novelplex_title">NovelPlex · Novel Platform Project</h5>
+                <span data-i18n="timeline_novelplex_date">Juli 2023 — Agustus 2024</span>
               </div>
               <div class="timeline-item">
-                <h5>Danrier · Game Boosting Freelance</h5>
-                <span>Juli 2022 — Agustus 2023</span>
+                <h5 data-i18n="timeline_danrier_title">Danrier · Game Boosting Freelance</h5>
+                <span data-i18n="timeline_danrier_date">Juli 2022 — Agustus 2023</span>
               </div>
             </div>
           </div>
@@ -1508,13 +1550,13 @@
       <section id="projects">
         <div class="container">
           <div class="section-head">
-            <h3>Proyek Pilihan</h3>
-            <p>Contoh proyek yang menunjukkan kemampuan menangani fitur inti produk dan menjaga sistem tetap stabil.</p>
+            <h3 data-i18n="projects_title">Proyek Pilihan</h3>
+            <p data-i18n="projects_desc">Contoh proyek yang menunjukkan kemampuan menangani fitur inti produk dan menjaga sistem tetap stabil.</p>
           </div>
           <div class="project-grid">
             <article class="project-card reveal" data-reveal>
               <div class="project-cover">
-                <img src="assets/projects/gasrekber.jpg" alt="Preview GasRekber" loading="lazy" onload="this.parentElement.classList.add('has-image')"/>
+                <img src="assets/projects/gasrekber.jpg" alt="Preview GasRekber" loading="lazy" data-i18n-alt="project_gasrekber_alt" onload="this.parentElement.classList.add('has-image')"/>
                 <span>GasRekber</span>
               </div>
               <div class="project-meta">
@@ -1523,18 +1565,18 @@
                 <span class="tag">jQuery</span>
                 <span class="tag">Golang</span>
               </div>
-              <span class="project-date">Agustus 2025 — Januari 2026</span>
-              <h4>Platform Rekber End-to-End</h4>
-              <p class="project-desc">Escrow end‑to‑end dengan SLA, KYC, payment gateway + Tasker webhook (HMAC), dan chat realtime. Didukung <strong>microservice Go + reverse proxy (SSE chat)</strong> serta AI chat‑intent.</p>
-              <button class="project-more" type="button" data-project-toggle aria-expanded="false">Lihat selengkapnya</button>
+              <span class="project-date" data-i18n="project_date_gasrekber">Agustus 2025 — Januari 2026</span>
+              <h4 data-i18n="project_gasrekber_title">Platform Rekber End-to-End</h4>
+              <p class="project-desc" data-i18n-html="project_gasrekber_desc">Escrow end‑to‑end dengan SLA, KYC, payment gateway + Tasker webhook (HMAC), dan chat realtime. Didukung <strong>microservice Go + reverse proxy (SSE chat)</strong> serta AI chat‑intent.</p>
+              <button class="project-more" type="button" data-project-toggle aria-expanded="false" data-i18n="project_more">Lihat selengkapnya</button>
               <div class="project-actions">
-                <a class="project-link primary" href="https://gasrekber.id" target="_blank" rel="noopener">Kunjungi website ↗</a>
-                <a class="project-link" href="#contact">Detail proyek →</a>
+                <a class="project-link primary" href="https://gasrekber.id" target="_blank" rel="noopener" data-i18n="project_visit">Kunjungi website ↗</a>
+                <a class="project-link" href="#contact" data-i18n="project_detail">Detail proyek →</a>
               </div>
             </article>
             <article class="project-card reveal" data-reveal>
               <div class="project-cover">
-                <img src="assets/projects/novelplex.jpg" alt="Preview NovelPlex" loading="lazy" onload="this.parentElement.classList.add('has-image')"/>
+                <img src="assets/projects/novelplex.jpg" alt="Preview NovelPlex" loading="lazy" data-i18n-alt="project_novelplex_alt" onload="this.parentElement.classList.add('has-image')"/>
                 <span>NovelPlex</span>
               </div>
               <div class="project-meta">
@@ -1542,17 +1584,17 @@
                 <span class="tag">MySQL</span>
                 <span class="tag">Bootstrap</span>
               </div>
-              <span class="project-date">Juli 2023 — Agustus 2024</span>
-              <h4>Platform Novel + Dashboard Penulis</h4>
-              <p class="project-desc">Katalog novel, chapter management, rating/review, serta dashboard penulis untuk menambah novel &amp; chapter. Mendukung halaman publik, FAQ, dan donation.</p>
-              <button class="project-more" type="button" data-project-toggle aria-expanded="false">Lihat selengkapnya</button>
+              <span class="project-date" data-i18n="project_date_novelplex">Juli 2023 — Agustus 2024</span>
+              <h4 data-i18n="project_novelplex_title">Platform Novel + Dashboard Penulis</h4>
+              <p class="project-desc" data-i18n="project_novelplex_desc">Katalog novel, chapter management, rating/review, serta dashboard penulis untuk menambah novel &amp; chapter. Mendukung halaman publik, FAQ, dan donation.</p>
+              <button class="project-more" type="button" data-project-toggle aria-expanded="false" data-i18n="project_more">Lihat selengkapnya</button>
               <div class="project-actions">
-                <a class="project-link" href="#contact">Tanyakan project →</a>
+                <a class="project-link" href="#contact" data-i18n="project_ask">Tanyakan project →</a>
               </div>
             </article>
             <article class="project-card reveal" data-reveal>
               <div class="project-cover">
-                <img src="assets/projects/danrier.jpg" alt="Preview Danrier" loading="lazy" onload="this.parentElement.classList.add('has-image')"/>
+                <img src="assets/projects/danrier.jpg" alt="Preview Danrier" loading="lazy" data-i18n-alt="project_danrier_alt" onload="this.parentElement.classList.add('has-image')"/>
                 <span>Danrier</span>
               </div>
               <div class="project-meta">
@@ -1560,12 +1602,12 @@
                 <span class="tag">MySQL</span>
                 <span class="tag">Payment</span>
               </div>
-              <span class="project-date">Juli 2022 — Agustus 2023</span>
-              <h4>Game Boosting Freelance Platform</h4>
-              <p class="project-desc">Order flow boosting dengan session auth, status tracking, chat, serta integrasi pembayaran (PayPal/crypto).</p>
-              <button class="project-more" type="button" data-project-toggle aria-expanded="false">Lihat selengkapnya</button>
+              <span class="project-date" data-i18n="project_date_danrier">Juli 2022 — Agustus 2023</span>
+              <h4 data-i18n="project_danrier_title">Game Boosting Freelance Platform</h4>
+              <p class="project-desc" data-i18n="project_danrier_desc">Order flow boosting dengan session auth, status tracking, chat, serta integrasi pembayaran (PayPal/crypto).</p>
+              <button class="project-more" type="button" data-project-toggle aria-expanded="false" data-i18n="project_more">Lihat selengkapnya</button>
               <div class="project-actions">
-                <a class="project-link" href="#contact">Baca proses →</a>
+                <a class="project-link" href="#contact" data-i18n="project_process">Baca proses →</a>
               </div>
             </article>
           </div>
@@ -1575,24 +1617,24 @@
       <section id="services">
         <div class="container">
           <div class="section-head">
-            <h3>Keahlian Utama</h3>
-            <p>Area yang paling sering saya tangani dalam proyek pengembangan web.</p>
+            <h3 data-i18n="services_title">Keahlian Utama</h3>
+            <p data-i18n="services_desc">Area yang paling sering saya tangani dalam proyek pengembangan web.</p>
           </div>
           <div class="services">
             <div class="service-card reveal" data-reveal>
-              <h4>Backend Core</h4>
-              <p>Membangun RESTful API, validasi data, dan alur bisnis yang konsisten.</p>
+              <h4 data-i18n="service_backend_title">Backend Core</h4>
+              <p data-i18n="service_backend_desc">Membangun RESTful API, validasi data, dan alur bisnis yang konsisten.</p>
             </div>
             <div class="service-card reveal" data-reveal>
-              <h4>Pembayaran &amp; Integrasi</h4>
-              <p>Integrasi payment, webhook, dan automasi status transaksi.</p>
+              <h4 data-i18n="service_payments_title">Pembayaran &amp; Integrasi</h4>
+              <p data-i18n="service_payments_desc">Integrasi payment, webhook, dan automasi status transaksi.</p>
             </div>
             <div class="service-card reveal" data-reveal>
-              <h4>Operasional &amp; Real-time</h4>
-              <p>Fitur real-time (chat/notification), monitoring, serta tooling admin.</p>
+              <h4 data-i18n="service_ops_title">Operasional &amp; Real-time</h4>
+              <p data-i18n="service_ops_desc">Fitur real-time (chat/notification), monitoring, serta tooling admin.</p>
             </div>
           </div>
-          <div class="stack-label">Tech Stack</div>
+          <div class="stack-label" data-i18n="stack_label">Tech Stack</div>
           <div class="stack-grid">
             <div class="stack-item">
               <span class="stack-icon php">PHP</span>
@@ -1643,34 +1685,34 @@
               <span class="stack-name">DigitalOcean</span>
             </div>
           </div>
-          <div class="stack-label">Soft Skills</div>
+          <div class="stack-label" data-i18n="softskills_label">Soft Skills</div>
           <div class="soft-skill-grid">
             <div class="soft-skill-card reveal" data-reveal>
               <div class="soft-icon">AT</div>
               <div>
-                <h5>Attention to detail</h5>
-                <p>Teliti di validasi data, edge case, dan konsistensi flow.</p>
+                <h5 data-i18n="soft_detail_title">Attention to detail</h5>
+                <p data-i18n="soft_detail_desc">Teliti di validasi data, edge case, dan konsistensi flow.</p>
               </div>
             </div>
             <div class="soft-skill-card reveal" data-reveal>
               <div class="soft-icon">FL</div>
               <div>
-                <h5>Fast learner</h5>
-                <p>Cepat adaptasi pada stack baru dan dokumentasi teknis.</p>
+                <h5 data-i18n="soft_fast_title">Fast learner</h5>
+                <p data-i18n="soft_fast_desc">Cepat adaptasi pada stack baru dan dokumentasi teknis.</p>
               </div>
             </div>
             <div class="soft-skill-card reveal" data-reveal>
               <div class="soft-icon">EN</div>
               <div>
-                <h5>English communication</h5>
-                <p>Nyaman membaca dokumentasi dan komunikasi teknis.</p>
+                <h5 data-i18n="soft_english_title">English communication</h5>
+                <p data-i18n="soft_english_desc">Nyaman membaca dokumentasi dan komunikasi teknis.</p>
               </div>
             </div>
             <div class="soft-skill-card reveal" data-reveal>
               <div class="soft-icon">TC</div>
               <div>
-                <h5>Team collaboration</h5>
-                <p>Bisa terbiasa koordinasi dengan frontend, QA, dan PM.</p>
+                <h5 data-i18n="soft_team_title">Team collaboration</h5>
+                <p data-i18n="soft_team_desc">Bisa terbiasa koordinasi dengan frontend, QA, dan PM.</p>
               </div>
             </div>
           </div>
@@ -1680,38 +1722,38 @@
       <section id="certificates">
         <div class="container">
           <div class="section-head">
-            <h3>Sertifikat &amp; Program</h3>
-            <p>Sertifikat dan program belajar yang mendukung kesiapan kerja di backend dan cloud.</p>
+            <h3 data-i18n="certs_title">Sertifikat &amp; Program</h3>
+            <p data-i18n="certs_desc">Sertifikat dan program belajar yang mendukung kesiapan kerja di backend dan cloud.</p>
           </div>
           <div class="certificate-grid">
             <article class="certificate-card reveal" data-reveal>
-              <button class="certificate-thumb" type="button" data-lightbox data-images="assets/certs/bnsp.png" data-caption="Sertifikat Kompetensi BNSP · Software Development (Program Analyst)">
-                <img src="assets/certs/bnsp.png" alt="Thumbnail sertifikat BNSP" loading="lazy"/>
-                <span class="certificate-zoom">Klik untuk zoom</span>
+              <button class="certificate-thumb" type="button" data-lightbox data-images="assets/certs/bnsp.png" data-caption="Sertifikat Kompetensi BNSP · Software Development (Program Analyst)" data-i18n-caption="cert_bnsp_caption">
+                <img src="assets/certs/bnsp.png" alt="Thumbnail sertifikat BNSP" loading="lazy" data-i18n-alt="cert_bnsp_alt"/>
+                <span class="certificate-zoom" data-i18n="cert_zoom">Klik untuk zoom</span>
               </button>
-              <h4>Sertifikat Kompetensi BNSP</h4>
-              <div class="certificate-meta">Badan Nasional Sertifikasi Profesi (BNSP)</div>
-              <div class="certificate-meta">Kualifikasi: Software Development · Program Analyst</div>
-              <div class="certificate-date">30 November 2023</div>
+              <h4 data-i18n="cert_bnsp_title">Sertifikat Kompetensi BNSP</h4>
+              <div class="certificate-meta" data-i18n="cert_bnsp_meta1">Badan Nasional Sertifikasi Profesi (BNSP)</div>
+              <div class="certificate-meta" data-i18n="cert_bnsp_meta2">Kualifikasi: Software Development · Program Analyst</div>
+              <div class="certificate-date" data-i18n="cert_bnsp_date">30 November 2023</div>
             </article>
             <article class="certificate-card reveal" data-reveal>
-              <button class="certificate-thumb" type="button" data-lightbox data-images="assets/certs/alterra_1.png, assets/certs/alterra_2.png" data-caption="MBKM MSIB · Alterra Academy · Golang Mastery for Green Tech Backend Engineers">
-                <img src="assets/certs/alterra_1.png" alt="Thumbnail sertifikat Alterra Academy" loading="lazy"/>
-                <span class="certificate-zoom">Klik untuk zoom</span>
+              <button class="certificate-thumb" type="button" data-lightbox data-images="assets/certs/alterra_1.png, assets/certs/alterra_2.png" data-caption="MBKM MSIB · Alterra Academy · Golang Mastery for Green Tech Backend Engineers" data-i18n-caption="cert_alterra_caption">
+                <img src="assets/certs/alterra_1.png" alt="Thumbnail sertifikat Alterra Academy" loading="lazy" data-i18n-alt="cert_alterra_alt"/>
+                <span class="certificate-zoom" data-i18n="cert_zoom">Klik untuk zoom</span>
               </button>
-              <h4>MBKM MSIB · Alterra Academy</h4>
-              <div class="certificate-meta">Program Golang Mastery for Green Tech Backend Engineers</div>
-              <div class="certificate-date">8 September 2024 — 31 Desember 2024</div>
+              <h4 data-i18n="cert_alterra_title">MBKM MSIB · Alterra Academy</h4>
+              <div class="certificate-meta" data-i18n="cert_alterra_meta">Program Golang Mastery for Green Tech Backend Engineers</div>
+              <div class="certificate-date" data-i18n="cert_alterra_date">8 September 2024 — 31 Desember 2024</div>
             </article>
             <article class="certificate-card reveal" data-reveal>
-              <button class="certificate-thumb" type="button" data-lightbox data-images="assets/certs/bangkit.png" data-caption="MBKM MSIB · Bangkit Academy · Cloud Computing">
-                <img src="assets/certs/bangkit.png" alt="Thumbnail sertifikat Bangkit Academy" loading="lazy"/>
-                <span class="certificate-zoom">Klik untuk zoom</span>
+              <button class="certificate-thumb" type="button" data-lightbox data-images="assets/certs/bangkit.png" data-caption="MBKM MSIB · Bangkit Academy · Cloud Computing" data-i18n-caption="cert_bangkit_caption">
+                <img src="assets/certs/bangkit.png" alt="Thumbnail sertifikat Bangkit Academy" loading="lazy" data-i18n-alt="cert_bangkit_alt"/>
+                <span class="certificate-zoom" data-i18n="cert_zoom">Klik untuk zoom</span>
               </button>
-              <h4>MBKM MSIB · Bangkit Academy</h4>
-              <div class="certificate-meta">Yayasan Dicoding Indonesia</div>
-              <div class="certificate-meta">Bidang: Cloud Computing</div>
-              <div class="certificate-date">16 Februari 2024 — 30 Juni 2024</div>
+              <h4 data-i18n="cert_bangkit_title">MBKM MSIB · Bangkit Academy</h4>
+              <div class="certificate-meta" data-i18n="cert_bangkit_meta1">Yayasan Dicoding Indonesia</div>
+              <div class="certificate-meta" data-i18n="cert_bangkit_meta2">Bidang: Cloud Computing</div>
+              <div class="certificate-date" data-i18n="cert_bangkit_date">16 Februari 2024 — 30 Juni 2024</div>
             </article>
           </div>
         </div>
@@ -1720,25 +1762,25 @@
       <section id="education">
         <div class="container">
           <div class="section-head">
-            <h3>Pendidikan</h3>
-            <p>Pendidikan formal yang relevan untuk pengembangan software.</p>
+            <h3 data-i18n="edu_title">Pendidikan</h3>
+            <p data-i18n="edu_desc">Pendidikan formal yang relevan untuk pengembangan software.</p>
           </div>
           <div class="education-list">
             <div class="education-card reveal" data-reveal data-delay="0">
               <div class="education-title">
                 <span>SMKS Citra Negara</span>
-                <span class="education-meta">Jul 2018 — Aug 2021</span>
+                <span class="education-meta" data-i18n="edu_smks_date">Jul 2018 — Aug 2021</span>
               </div>
-              <div class="education-meta">Diploma in Software Engineering</div>
-              <div class="education-meta">Average Score: 83 (scale 100)</div>
+              <div class="education-meta" data-i18n="edu_smks_major">Rekayasa Perangkat Lunak</div>
+              <div class="education-meta" data-i18n="edu_smks_score">Nilai rata-rata: 83 (skala 100)</div>
             </div>
             <div class="education-card reveal" data-reveal data-delay="60">
               <div class="education-title">
-                <span>Universitas Nusa Mandiri <span class="edu-badge">S1</span></span>
-                <span class="education-meta">Sep 2021 — Agustus 2025</span>
+                <span>Universitas Nusa Mandiri <span class="edu-badge" data-i18n="edu_unm_degree_badge">S1</span></span>
+                <span class="education-meta" data-i18n="edu_unm_date">Sep 2021 — Agustus 2025</span>
               </div>
-              <div class="education-meta">Informatics (Computer Science)</div>
-              <div class="education-meta">GPA: 3.78 / 4.00</div>
+              <div class="education-meta" data-i18n="edu_unm_major">Informatika (Computer Science)</div>
+              <div class="education-meta" data-i18n="edu_unm_gpa">IPK: 3.78 / 4.00</div>
             </div>
           </div>
         </div>
@@ -1747,37 +1789,37 @@
       <section id="experience">
         <div class="container">
           <div class="section-head">
-            <h3>Proses Kerja</h3>
-            <p>Cara kerja yang rapi dan mudah diikuti tim, dari awal sampai rilis.</p>
+            <h3 data-i18n="process_title">Proses Kerja</h3>
+            <p data-i18n="process_desc">Cara kerja yang rapi dan mudah diikuti tim, dari awal sampai rilis.</p>
           </div>
           <div class="timeline">
             <div class="timeline-list">
               <div class="timeline-item">
-                <h5>Requirement &amp; Scope</h5>
-                <span>Memahami kebutuhan dan target bisnis.</span>
+                <h5 data-i18n="process_req_title">Requirement &amp; Scope</h5>
+                <span data-i18n="process_req_desc">Memahami kebutuhan dan target bisnis.</span>
               </div>
               <div class="timeline-item">
-                <h5>Desain Solusi</h5>
-                <span>Menetapkan alur data dan kebutuhan fitur.</span>
+                <h5 data-i18n="process_design_title">Desain Solusi</h5>
+                <span data-i18n="process_design_desc">Menetapkan alur data dan kebutuhan fitur.</span>
               </div>
               <div class="timeline-item">
-                <h5>Implementation &amp; Testing</h5>
-                <span>Mengerjakan fitur, cek kualitas, dan perbaikan.</span>
+                <h5 data-i18n="process_impl_title">Implementation &amp; Testing</h5>
+                <span data-i18n="process_impl_desc">Mengerjakan fitur, cek kualitas, dan perbaikan.</span>
               </div>
               <div class="timeline-item">
-                <h5>Deployment &amp; Monitoring</h5>
-                <span>Rilis, monitoring, dan perbaikan berkelanjutan.</span>
+                <h5 data-i18n="process_deploy_title">Deployment &amp; Monitoring</h5>
+                <span data-i18n="process_deploy_desc">Rilis, monitoring, dan perbaikan berkelanjutan.</span>
               </div>
             </div>
             <div>
               <div class="testimonial-grid">
                 <div class="testimonial reveal" data-reveal>
-                  <p>Menjaga keamanan akun dan transaksi dengan validasi yang konsisten.</p>
-                  <strong>Catatan: Security &amp; Auth</strong>
+                  <p data-i18n="note_security_desc">Menjaga keamanan akun dan transaksi dengan validasi yang konsisten.</p>
+                  <strong data-i18n="note_security_title">Catatan: Security &amp; Auth</strong>
                 </div>
                 <div class="testimonial reveal" data-reveal>
-                  <p>Menjaga performa agar fitur utama tetap cepat.</p>
-                  <strong>Catatan: Database</strong>
+                  <p data-i18n="note_perf_desc">Menjaga performa agar fitur utama tetap cepat.</p>
+                  <strong data-i18n="note_perf_title">Catatan: Database</strong>
                 </div>
               </div>
             </div>
@@ -1788,36 +1830,36 @@
       <section id="contact">
         <div class="container">
           <div class="section-head">
-            <h3>Kontak</h3>
-            <p>Terbuka untuk posisi backend/web developer dan proyek freelance. Silakan kirim detail kebutuhan Anda.</p>
+            <h3 data-i18n="contact_title">Kontak</h3>
+            <p data-i18n="contact_desc">Terbuka untuk posisi backend/web developer dan proyek freelance. Silakan kirim detail kebutuhan Anda.</p>
           </div>
           <div class="contact-card">
             <form id="contactForm" data-whatsapp="6281297185831">
               <div class="field">
-                <label for="name">Nama</label>
-                <input id="name" name="name" type="text" placeholder="Nama lengkap"/>
+                <label for="name" data-i18n="contact_label_name">Nama</label>
+                <input id="name" name="name" type="text" placeholder="Nama lengkap" data-i18n-placeholder="contact_placeholder_name"/>
               </div>
               <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="email@domain.com"/>
+                <label for="email" data-i18n="contact_label_email">Email</label>
+                <input id="email" name="email" type="email" placeholder="email@domain.com" data-i18n-placeholder="contact_placeholder_email"/>
               </div>
               <div class="field">
-                <label for="message">Ceritakan kebutuhan Anda</label>
-                <textarea id="message" name="message" placeholder="Tulis ringkas posisi/role, scope, dan timeline."></textarea>
+                <label for="message" data-i18n="contact_label_message">Ceritakan kebutuhan Anda</label>
+                <textarea id="message" name="message" placeholder="Tulis ringkas posisi/role, scope, dan timeline." data-i18n-placeholder="contact_placeholder_message"></textarea>
               </div>
-              <button class="cta primary" type="submit">Kirim via WhatsApp</button>
+              <button class="cta primary" type="submit" data-i18n="contact_submit">Kirim via WhatsApp</button>
             </form>
             <div class="contact-info">
               <div class="info-block">
-                <h5>Lokasi</h5>
-                <p>West Java · Remote Friendly</p>
+                <h5 data-i18n="contact_location_title">Lokasi</h5>
+                <p data-i18n="contact_location_value">Jawa Barat · Remote Friendly</p>
               </div>
               <div class="info-block">
-                <h5>Kontak Langsung</h5>
+                <h5 data-i18n="contact_direct_title">Kontak Langsung</h5>
                 <p>reihaniz.etc@gmail.com<br/>+62 812-9718-5831</p>
               </div>
               <div class="info-block">
-                <h5>Social</h5>
+                <h5 data-i18n="contact_social_title">Sosial</h5>
                 <p>
                   <a href="https://github.com/reihaniz" target="_blank" rel="noopener">GitHub</a> ·
                   <a href="https://linkedin.com/in/reihaniz" target="_blank" rel="noopener">LinkedIn</a> ·
@@ -1832,19 +1874,19 @@
 
     <footer>
       <div class="container">
-        Dibuat dengan fokus pada backend yang rapi, stabil, dan mudah dirawat. © 2026 Nama Anda.
+        <span data-i18n="footer_text">© 2026 Maulana Reihansyah.</span>
       </div>
     </footer>
   </div>
 
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="lightbox-panel">
-      <button class="lightbox-close" type="button">Tutup</button>
-      <img src="" alt="Preview sertifikat"/>
+      <button class="lightbox-close" type="button" data-i18n="lightbox_close">Tutup</button>
+      <img src="" alt="Preview sertifikat" data-i18n-alt="lightbox_alt"/>
       <div class="lightbox-controls">
-        <button class="lightbox-prev" type="button" aria-label="Sebelumnya">‹</button>
+        <button class="lightbox-prev" type="button" aria-label="Sebelumnya" data-i18n-aria="lightbox_prev_aria">‹</button>
         <span class="lightbox-count"></span>
-        <button class="lightbox-next" type="button" aria-label="Berikutnya">›</button>
+        <button class="lightbox-next" type="button" aria-label="Berikutnya" data-i18n-aria="lightbox_next_aria">›</button>
       </div>
       <div class="lightbox-caption"></div>
     </div>
@@ -1887,19 +1929,395 @@
       });
     }
 
-    const themeToggles = document.querySelectorAll('.theme-toggle');
+    const translations = {
+      id: {
+        page_title: 'Portofolio | Nama Anda',
+        lang_switch_to_en: 'Ganti ke Bahasa Inggris',
+        lang_switch_to_id: 'Ganti ke Bahasa Indonesia',
+        theme_dark: 'Mode Gelap',
+        theme_light: 'Mode Terang',
+        theme_toggle_aria: 'Ganti mode terang/gelap',
+        brand_name: 'Maulana Reihansyah',
+        brand_role: 'Backend / Web Developer',
+        nav_about: 'Tentang',
+        nav_projects: 'Proyek',
+        nav_services: 'Keahlian',
+        nav_certificates: 'Sertifikat',
+        nav_education: 'Pendidikan',
+        nav_process: 'Proses',
+        nav_contact: 'Kontak',
+        nav_menu: 'Menu',
+        cta_contact: 'Hubungi Saya',
+        hero_badge: 'Fresh Graduate',
+        hero_role: ' · Backend / Web Developer',
+        hero_title: 'Membangun backend yang stabil, aman, dan mudah dirawat.',
+        hero_desc: 'Saya membantu tim menghadirkan sistem backend yang stabil dari awal sampai rilis, supaya produk mudah dioperasikan dan tetap aman saat dipakai pengguna.',
+        hero_cta_projects: 'Lihat Proyek Backend',
+        hero_cta_interview: 'Jadwalkan Interview',
+        stat_projects_title: '3+ Proyek',
+        stat_projects_desc: 'Freelance & pribadi',
+        stat_programs_title: '2 Program',
+        stat_programs_desc: 'MBKM MSIB <small style="font-size: 10px;">Bersertifikat</small>',
+        stat_cert_title: '1 Sertifikasi',
+        stat_cert_desc: 'BNSP 2023',
+        profile_name: 'Maulana Reihansyah Aziizs',
+        profile_desc: 'Terbiasa mengerjakan proyek dari awal sampai rilis dan memastikan fitur berjalan stabil, aman, serta mudah dipelihara.',
+        availability: 'Siap bekerja full-time / freelance',
+        about_title: 'Tentang Saya',
+        about_desc: 'Saya fokus pada backend yang rapi dan mudah dipelihara, supaya proses bisnis berjalan konsisten dan aman.',
+        about_body: 'Proyek-proyek saya dikerjakan end‑to‑end: memahami kebutuhan, membangun fitur inti, menyiapkan panel admin, serta mendukung operasional harian.',
+        timeline_gasrekber_title: 'GasRekber · Rekening Bersama Platform',
+        timeline_gasrekber_date: 'Agustus 2025 — Januari 2026',
+        timeline_novelplex_title: 'NovelPlex · Platform Novel',
+        timeline_novelplex_date: 'Juli 2023 — Agustus 2024',
+        timeline_danrier_title: 'Danrier · Game Boosting Freelance',
+        timeline_danrier_date: 'Juli 2022 — Agustus 2023',
+        projects_title: 'Proyek Pilihan',
+        projects_desc: 'Contoh proyek yang menunjukkan kemampuan menangani fitur inti produk dan menjaga sistem tetap stabil.',
+        project_gasrekber_alt: 'Preview GasRekber',
+        project_date_gasrekber: 'Agustus 2025 — Januari 2026',
+        project_gasrekber_title: 'Platform Rekber End-to-End',
+        project_gasrekber_desc: 'Escrow end‑to‑end dengan SLA, KYC, payment gateway + Tasker webhook (HMAC), dan chat realtime. Didukung <strong>microservice Go + reverse proxy (SSE chat)</strong> serta AI chat‑intent.',
+        project_novelplex_alt: 'Preview NovelPlex',
+        project_date_novelplex: 'Juli 2023 — Agustus 2024',
+        project_novelplex_title: 'Platform Novel + Dashboard Penulis',
+        project_novelplex_desc: 'Katalog novel, chapter management, rating/review, serta dashboard penulis untuk menambah novel & chapter. Mendukung halaman publik, FAQ, dan donation.',
+        project_danrier_alt: 'Preview Danrier',
+        project_date_danrier: 'Juli 2022 — Agustus 2023',
+        project_danrier_title: 'Game Boosting Freelance Platform',
+        project_danrier_desc: 'Order flow boosting dengan session auth, status tracking, chat, serta integrasi pembayaran (PayPal/crypto).',
+        project_more: 'Lihat selengkapnya',
+        project_less: 'Ringkas',
+        project_visit: 'Kunjungi website ↗',
+        project_detail: 'Detail proyek →',
+        project_ask: 'Tanyakan project →',
+        project_process: 'Baca proses →',
+        services_title: 'Keahlian Utama',
+        services_desc: 'Area yang paling sering saya tangani dalam proyek pengembangan web.',
+        service_backend_title: 'Backend Core',
+        service_backend_desc: 'Membangun RESTful API, validasi data, dan alur bisnis yang konsisten.',
+        service_payments_title: 'Pembayaran & Integrasi',
+        service_payments_desc: 'Integrasi payment, webhook, dan automasi status transaksi.',
+        service_ops_title: 'Operasional & Real-time',
+        service_ops_desc: 'Fitur real-time (chat/notification), monitoring, serta tooling admin.',
+        stack_label: 'Tech Stack',
+        softskills_label: 'Soft Skills',
+        soft_detail_title: 'Attention to detail',
+        soft_detail_desc: 'Teliti di validasi data, edge case, dan konsistensi flow.',
+        soft_fast_title: 'Fast learner',
+        soft_fast_desc: 'Cepat adaptasi pada stack baru dan dokumentasi teknis.',
+        soft_english_title: 'English communication',
+        soft_english_desc: 'Nyaman membaca dokumentasi dan komunikasi teknis.',
+        soft_team_title: 'Team collaboration',
+        soft_team_desc: 'Bisa terbiasa koordinasi dengan frontend, QA, dan PM.',
+        certs_title: 'Sertifikat & Program',
+        certs_desc: 'Sertifikat dan program belajar yang mendukung kesiapan kerja di backend dan cloud.',
+        cert_zoom: 'Klik untuk zoom',
+        cert_bnsp_title: 'Sertifikat Kompetensi BNSP',
+        cert_bnsp_meta1: 'Badan Nasional Sertifikasi Profesi (BNSP)',
+        cert_bnsp_meta2: 'Kualifikasi: Software Development · Program Analyst',
+        cert_bnsp_date: '30 November 2023',
+        cert_bnsp_alt: 'Thumbnail sertifikat BNSP',
+        cert_alterra_title: 'MBKM MSIB · Alterra Academy',
+        cert_alterra_meta: 'Program Golang Mastery for Green Tech Backend Engineers',
+        cert_alterra_date: '8 September 2024 — 31 Desember 2024',
+        cert_alterra_alt: 'Thumbnail sertifikat Alterra Academy',
+        cert_bangkit_title: 'MBKM MSIB · Bangkit Academy',
+        cert_bangkit_meta1: 'Yayasan Dicoding Indonesia',
+        cert_bangkit_meta2: 'Bidang: Cloud Computing',
+        cert_bangkit_date: '16 Februari 2024 — 30 Juni 2024',
+        cert_bangkit_alt: 'Thumbnail sertifikat Bangkit Academy',
+        cert_bnsp_caption: 'Sertifikat Kompetensi BNSP · Software Development (Program Analyst)',
+        cert_alterra_caption: 'MBKM MSIB · Alterra Academy · Golang Mastery for Green Tech Backend Engineers',
+        cert_bangkit_caption: 'MBKM MSIB · Bangkit Academy · Cloud Computing',
+        edu_title: 'Pendidikan',
+        edu_desc: 'Pendidikan formal yang relevan untuk pengembangan software.',
+        edu_smks_date: 'Jul 2018 — Aug 2021',
+        edu_smks_major: 'Rekayasa Perangkat Lunak',
+        edu_smks_score: 'Nilai rata-rata: 83 (skala 100)',
+        edu_unm_date: 'Sep 2021 — Agustus 2025',
+        edu_unm_degree_badge: 'S1',
+        edu_unm_major: 'Informatika (Computer Science)',
+        edu_unm_gpa: 'IPK: 3.78 / 4.00',
+        process_title: 'Proses Kerja',
+        process_desc: 'Cara kerja yang rapi dan mudah diikuti tim, dari awal sampai rilis.',
+        process_req_title: 'Requirement & Scope',
+        process_req_desc: 'Memahami kebutuhan dan target bisnis.',
+        process_design_title: 'Desain Solusi',
+        process_design_desc: 'Menetapkan alur data dan kebutuhan fitur.',
+        process_impl_title: 'Implementation & Testing',
+        process_impl_desc: 'Mengerjakan fitur, cek kualitas, dan perbaikan.',
+        process_deploy_title: 'Deployment & Monitoring',
+        process_deploy_desc: 'Rilis, monitoring, dan perbaikan berkelanjutan.',
+        note_security_desc: 'Menjaga keamanan akun dan transaksi dengan validasi yang konsisten.',
+        note_security_title: 'Catatan: Security & Auth',
+        note_perf_desc: 'Menjaga performa agar fitur utama tetap cepat.',
+        note_perf_title: 'Catatan: Database',
+        contact_title: 'Kontak',
+        contact_desc: 'Terbuka untuk posisi backend/web developer dan proyek freelance. Silakan kirim detail kebutuhan Anda.',
+        contact_label_name: 'Nama',
+        contact_label_email: 'Email',
+        contact_label_message: 'Ceritakan kebutuhan Anda',
+        contact_placeholder_name: 'Nama lengkap',
+        contact_placeholder_email: 'email@domain.com',
+        contact_placeholder_message: 'Tulis ringkas posisi/role, scope, dan timeline.',
+        contact_submit: 'Kirim via WhatsApp',
+        contact_location_title: 'Lokasi',
+        contact_location_value: 'Jawa Barat · Remote Friendly',
+        contact_direct_title: 'Kontak Langsung',
+        contact_social_title: 'Sosial',
+        footer_text: '© 2026 Maulana Reihansyah.',
+        lightbox_close: 'Tutup',
+        lightbox_prev_aria: 'Sebelumnya',
+        lightbox_next_aria: 'Berikutnya',
+        lightbox_alt: 'Preview sertifikat',
+        wa_intro: 'Halo Reihan, saya ingin berdiskusi mengenai project/posisi.',
+        wa_name_label: 'Nama',
+        wa_email_label: 'Email',
+        wa_message_label: 'Pesan'
+      },
+      en: {
+        page_title: 'Portfolio | Your Name',
+        lang_switch_to_en: 'Switch to English',
+        lang_switch_to_id: 'Switch to Indonesian',
+        theme_dark: 'Dark Mode',
+        theme_light: 'Light Mode',
+        theme_toggle_aria: 'Toggle light/dark mode',
+        brand_name: 'Maulana Reihansyah',
+        brand_role: 'Backend / Web Developer',
+        nav_about: 'About',
+        nav_projects: 'Projects',
+        nav_services: 'Skills',
+        nav_certificates: 'Certificates',
+        nav_education: 'Education',
+        nav_process: 'Process',
+        nav_contact: 'Contact',
+        nav_menu: 'Menu',
+        cta_contact: 'Contact Me',
+        hero_badge: 'Fresh Graduate',
+        hero_role: ' · Backend / Web Developer',
+        hero_title: 'Building stable, secure, and maintainable backend systems.',
+        hero_desc: 'I help teams deliver stable backend systems from start to release, so the product is easy to operate and secure for users.',
+        hero_cta_projects: 'See Backend Projects',
+        hero_cta_interview: 'Schedule Interview',
+        stat_projects_title: '3+ Projects',
+        stat_projects_desc: 'Freelance & personal',
+        stat_programs_title: '2 Programs',
+        stat_programs_desc: 'MBKM MSIB <small style="font-size: 10px;">Certified</small>',
+        stat_cert_title: '1 Certification',
+        stat_cert_desc: 'BNSP 2023',
+        profile_name: 'Maulana Reihansyah Aziizs',
+        profile_desc: 'Used to working end‑to‑end and ensuring features are stable, secure, and easy to maintain.',
+        availability: 'Available for full-time / freelance',
+        about_title: 'About Me',
+        about_desc: 'I focus on clean, maintainable backend so business processes run consistently and safely.',
+        about_body: 'I handle projects end‑to‑end: understanding needs, building core features, preparing admin tools, and supporting daily operations.',
+        timeline_gasrekber_title: 'GasRekber · Escrow Platform',
+        timeline_gasrekber_date: 'August 2025 — January 2026',
+        timeline_novelplex_title: 'NovelPlex · Novel Platform Project',
+        timeline_novelplex_date: 'July 2023 — August 2024',
+        timeline_danrier_title: 'Danrier · Game Boosting Freelance',
+        timeline_danrier_date: 'July 2022 — August 2023',
+        projects_title: 'Featured Projects',
+        projects_desc: 'Projects that show handling core product features and keeping systems stable.',
+        project_gasrekber_alt: 'GasRekber preview',
+        project_date_gasrekber: 'August 2025 — January 2026',
+        project_gasrekber_title: 'End-to-End Escrow Platform',
+        project_gasrekber_desc: 'End‑to‑end escrow with SLA, KYC, payment gateway + Tasker webhook (HMAC), and real‑time chat. Powered by <strong>Go microservice + reverse proxy (SSE chat)</strong> and AI chat‑intent.',
+        project_novelplex_alt: 'NovelPlex preview',
+        project_date_novelplex: 'July 2023 — August 2024',
+        project_novelplex_title: 'Novel Platform + Writer Dashboard',
+        project_novelplex_desc: 'Novel catalog, chapter management, ratings/reviews, plus writer dashboard to manage novels & chapters. Includes public pages, FAQ, and donations.',
+        project_danrier_alt: 'Danrier preview',
+        project_date_danrier: 'July 2022 — August 2023',
+        project_danrier_title: 'Game Boosting Freelance Platform',
+        project_danrier_desc: 'Boosting order flow with session auth, status tracking, chat, and payment integrations (PayPal/crypto).',
+        project_more: 'View more',
+        project_less: 'Show less',
+        project_visit: 'Visit website ↗',
+        project_detail: 'Project details →',
+        project_ask: 'Ask about project →',
+        project_process: 'See process →',
+        services_title: 'Core Skills',
+        services_desc: 'Areas I handle most often in web projects.',
+        service_backend_title: 'Backend Core',
+        service_backend_desc: 'Build RESTful APIs, data validation, and consistent business flows.',
+        service_payments_title: 'Payments & Integrations',
+        service_payments_desc: 'Payment integration, webhooks, and automated transaction status.',
+        service_ops_title: 'Operations & Real-time',
+        service_ops_desc: 'Real-time features (chat/notifications), monitoring, and admin tooling.',
+        stack_label: 'Tech Stack',
+        softskills_label: 'Soft Skills',
+        soft_detail_title: 'Attention to detail',
+        soft_detail_desc: 'Thorough in data validation, edge cases, and flow consistency.',
+        soft_fast_title: 'Fast learner',
+        soft_fast_desc: 'Quick to adapt to new stacks and technical docs.',
+        soft_english_title: 'English communication',
+        soft_english_desc: 'Comfortable reading docs and communicating technically.',
+        soft_team_title: 'Team collaboration',
+        soft_team_desc: 'Comfortable coordinating with frontend, QA, and PM.',
+        certs_title: 'Certificates & Programs',
+        certs_desc: 'Certificates and learning programs that support backend and cloud readiness.',
+        cert_zoom: 'Click to zoom',
+        cert_bnsp_title: 'BNSP Competency Certificate',
+        cert_bnsp_meta1: 'Badan Nasional Sertifikasi Profesi (BNSP)',
+        cert_bnsp_meta2: 'Qualification: Software Development · Program Analyst',
+        cert_bnsp_date: 'November 30, 2023',
+        cert_bnsp_alt: 'BNSP certificate thumbnail',
+        cert_alterra_title: 'MBKM MSIB · Alterra Academy',
+        cert_alterra_meta: 'Golang Mastery for Green Tech Backend Engineers Program',
+        cert_alterra_date: 'September 8, 2024 — December 31, 2024',
+        cert_alterra_alt: 'Alterra Academy certificate thumbnail',
+        cert_bangkit_title: 'MBKM MSIB · Bangkit Academy',
+        cert_bangkit_meta1: 'Yayasan Dicoding Indonesia',
+        cert_bangkit_meta2: 'Field: Cloud Computing',
+        cert_bangkit_date: 'February 16, 2024 — June 30, 2024',
+        cert_bangkit_alt: 'Bangkit Academy certificate thumbnail',
+        cert_bnsp_caption: 'BNSP Competency Certificate · Software Development (Program Analyst)',
+        cert_alterra_caption: 'MBKM MSIB · Alterra Academy · Golang Mastery for Green Tech Backend Engineers',
+        cert_bangkit_caption: 'MBKM MSIB · Bangkit Academy · Cloud Computing',
+        edu_title: 'Education',
+        edu_desc: 'Formal education relevant to software development.',
+        edu_smks_date: 'Jul 2018 — Aug 2021',
+        edu_smks_major: 'Software Engineering',
+        edu_smks_score: 'Average score: 83 (scale 100)',
+        edu_unm_date: 'Sep 2021 — August 2025',
+        edu_unm_degree_badge: 'Bachelor',
+        edu_unm_major: 'Informatics (Computer Science)',
+        edu_unm_gpa: 'GPA: 3.78 / 4.00',
+        process_title: 'Work Process',
+        process_desc: 'A structured way of working from planning to release.',
+        process_req_title: 'Requirement & Scope',
+        process_req_desc: 'Understand requirements and business goals.',
+        process_design_title: 'Solution Design',
+        process_design_desc: 'Define data flow and feature needs.',
+        process_impl_title: 'Implementation & Testing',
+        process_impl_desc: 'Build features, check quality, and iterate.',
+        process_deploy_title: 'Deployment & Monitoring',
+        process_deploy_desc: 'Release, monitor, and improve continuously.',
+        note_security_desc: 'Keep account and transaction security with consistent validation.',
+        note_security_title: 'Note: Security & Auth',
+        note_perf_desc: 'Keep key features fast and responsive.',
+        note_perf_title: 'Note: Database',
+        contact_title: 'Contact',
+        contact_desc: 'Open to backend/web developer roles and freelance projects. Share your needs.',
+        contact_label_name: 'Name',
+        contact_label_email: 'Email',
+        contact_label_message: 'Tell me about your needs',
+        contact_placeholder_name: 'Full name',
+        contact_placeholder_email: 'email@domain.com',
+        contact_placeholder_message: 'Briefly describe role, scope, and timeline.',
+        contact_submit: 'Send via WhatsApp',
+        contact_location_title: 'Location',
+        contact_location_value: 'West Java · Remote friendly',
+        contact_direct_title: 'Direct Contact',
+        contact_social_title: 'Social',
+        footer_text: '© 2026 Maulana Reihansyah.',
+        lightbox_close: 'Close',
+        lightbox_prev_aria: 'Previous',
+        lightbox_next_aria: 'Next',
+        lightbox_alt: 'Certificate preview',
+        wa_intro: 'Hi Reihan, I would like to discuss a project/position.',
+        wa_name_label: 'Name',
+        wa_email_label: 'Email',
+        wa_message_label: 'Message'
+      }
+    };
+
     const root = document.documentElement;
+    const themeToggles = document.querySelectorAll('.theme-toggle');
+    const langToggles = document.querySelectorAll('.lang-toggle');
+    const storedLang = localStorage.getItem('lang');
+    const browserLang = (navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'id';
+    let currentLang = storedLang || browserLang || 'id';
+
+    const getDict = () => translations[currentLang] || translations.id;
+
+    const updateThemeLabel = (theme) => {
+      if (!themeToggles.length) return;
+      const dict = getDict();
+      themeToggles.forEach((toggle) => {
+        toggle.textContent = theme === 'dark' ? dict.theme_light : dict.theme_dark;
+      });
+    };
+
+    const applyLanguage = (lang) => {
+      currentLang = translations[lang] ? lang : 'id';
+      localStorage.setItem('lang', currentLang);
+      root.setAttribute('lang', currentLang);
+      const dict = getDict();
+
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) {
+          el.textContent = dict[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+        const key = el.dataset.i18nHtml;
+        if (dict[key] !== undefined) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+        const key = el.dataset.i18nPlaceholder;
+        if (dict[key] !== undefined) {
+          el.setAttribute('placeholder', dict[key]);
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-aria]').forEach((el) => {
+        const key = el.dataset.i18nAria;
+        if (dict[key] !== undefined) {
+          el.setAttribute('aria-label', dict[key]);
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-alt]').forEach((el) => {
+        const key = el.dataset.i18nAlt;
+        if (dict[key] !== undefined) {
+          el.setAttribute('alt', dict[key]);
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-caption]').forEach((el) => {
+        const key = el.dataset.i18nCaption;
+        if (dict[key] !== undefined) {
+          el.setAttribute('data-caption', dict[key]);
+        }
+      });
+
+      if (dict.page_title) {
+        document.title = dict.page_title;
+      }
+
+      if (langToggles.length) {
+        langToggles.forEach((toggle) => {
+          const isId = currentLang === 'id';
+          toggle.textContent = isId ? 'EN' : 'ID';
+          toggle.setAttribute('aria-label', isId ? dict.lang_switch_to_en : dict.lang_switch_to_id);
+        });
+      }
+
+      updateThemeLabel(root.getAttribute('data-theme'));
+      if (typeof updateProjectToggles === 'function') updateProjectToggles();
+    };
+
+    if (langToggles.length) {
+      langToggles.forEach((toggle) => {
+        toggle.addEventListener('click', () => {
+          const nextLang = currentLang === 'id' ? 'en' : 'id';
+          applyLanguage(nextLang);
+        });
+      });
+    }
+
     const storedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
     root.setAttribute('data-theme', initialTheme);
-
-    const updateThemeLabel = (theme) => {
-      if (!themeToggles.length) return;
-      themeToggles.forEach((toggle) => {
-        toggle.textContent = theme === 'dark' ? 'Mode Terang' : 'Mode Gelap';
-      });
-    };
     updateThemeLabel(initialTheme);
 
     if (themeToggles.length) {
@@ -1916,6 +2334,7 @@
     const projectToggles = document.querySelectorAll('[data-project-toggle]');
     let projectToggleTimer = null;
     const updateProjectToggles = () => {
+      const dict = getDict();
       projectToggles.forEach((toggle) => {
         const card = toggle.closest('.project-card');
         const desc = card ? card.querySelector('.project-desc') : null;
@@ -1926,6 +2345,8 @@
           card.classList.remove('is-expanded');
           toggle.setAttribute('aria-expanded', 'false');
         }
+        const expanded = card.classList.contains('is-expanded');
+        toggle.textContent = expanded ? dict.project_less : dict.project_more;
       });
     };
 
@@ -1935,10 +2356,12 @@
         if (!card) return;
         const expanded = card.classList.toggle('is-expanded');
         toggle.setAttribute('aria-expanded', String(expanded));
-        toggle.textContent = expanded ? 'Ringkas' : 'Lihat selengkapnya';
+        const dict = getDict();
+        toggle.textContent = expanded ? dict.project_less : dict.project_more;
       });
     });
 
+    applyLanguage(currentLang);
     window.addEventListener('load', updateProjectToggles);
     window.addEventListener('resize', () => {
       clearTimeout(projectToggleTimer);
@@ -1954,11 +2377,12 @@
         const name = contactForm.querySelector('[name="name"]')?.value.trim();
         const email = contactForm.querySelector('[name="email"]')?.value.trim();
         const message = contactForm.querySelector('[name="message"]')?.value.trim();
+        const dict = getDict();
         const lines = [
-          'Halo Reihan, saya ingin berdiskusi mengenai project/posisi.',
-          name ? `Nama: ${name}` : null,
-          email ? `Email: ${email}` : null,
-          message ? `Pesan: ${message}` : null
+          dict.wa_intro,
+          name ? `${dict.wa_name_label}: ${name}` : null,
+          email ? `${dict.wa_email_label}: ${email}` : null,
+          message ? `${dict.wa_message_label}: ${message}` : null
         ].filter(Boolean);
         const text = lines.join('\n');
         const url = `https://wa.me/${phoneRaw}?text=${encodeURIComponent(text)}`;
@@ -1982,8 +2406,9 @@
       if (!lightbox || !lightboxImg) return;
       const total = lightboxImages.length;
       const src = lightboxImages[lightboxIndex] || '';
+      const dict = getDict();
       lightboxImg.src = src;
-      lightboxImg.alt = lightboxCaptionText || 'Preview sertifikat';
+      lightboxImg.alt = lightboxCaptionText || dict.lightbox_alt || 'Certificate preview';
       if (lightboxCaption) {
         lightboxCaption.textContent = lightboxCaptionText || '';
       }
